@@ -1,0 +1,17 @@
+{
+    "what": [
+        {"time": "handleTime"},
+        {"name": "handleName"},
+        {
+            "exchange rate": [
+                {"eur": "handleEUR"}
+            ]
+        },
+        {
+            "course": [
+                {"eur": "handleEUR"}
+            ]
+        }
+    ],
+    "help": "handleHelp"
+}
