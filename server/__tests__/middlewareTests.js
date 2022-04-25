@@ -9,7 +9,7 @@ const mockResponse = () => {
     return res;
 };
 
-const antiXSSMiddleware = require('../private/js/utility');
+const antiXSSMiddleware = require('../private/middlewares/antiXSS');
 
 describe("Testing of request body XSS cleaner", () => {
     test("Should replate html tags inside of request body", async () => {
