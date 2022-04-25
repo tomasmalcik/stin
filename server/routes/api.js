@@ -6,7 +6,7 @@ router.get("/api/test", (req, res) => {
 })
 
 router.post("/api/test",antiXSS, (req, res) => {
-    res.status(200).json(req.body);
+    res.status(200).json(req.body.hobbies[0].swimming);
 })
 
 module.exports = router
