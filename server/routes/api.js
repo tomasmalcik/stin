@@ -11,7 +11,7 @@ router.post("/api/test", (req, res) => {
 })
 
 router.get("/api/sendCommand:command", commandParser, (req, res) => {
-
+    res.send("no");
 });
 
 module.exports = router
