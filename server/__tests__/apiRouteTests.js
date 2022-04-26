@@ -16,10 +16,10 @@ describe('Behavior of routes', () => {
     });
 
     test("Reaching POST /api/test with empty body should return req.body as {}", async () => {
-        const res = await request(app).post("/api/test").send({test: "test"});
+        const res = await request(app).post("/api/test").send({test: "testing"});
         expect(res.statusCode).toBe(200);
         expect(JSON.parse(res.text)).toEqual({
-            test: "test"
+            test: "testing"
         });
     })
 });
