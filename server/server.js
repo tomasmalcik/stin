@@ -6,6 +6,9 @@ const express = require("express")
 const app = express()
 const bodyParser = require("body-parser")
 const readFile = require("./private/js/readFile");
+const cron = require("node-cron")
+const { updateHistoryData } = require("./private/js/downloadData")
+
 
 //Load commands
 var commands = readFile("./private/files/commands.json");
@@ -29,6 +32,10 @@ const antiXSS = require("./private/middlewares/antiXSS");
 const apiRouter = require("./routes/api")
 
 
+//Cron schedule download
+cron.schedule('0 */5 13-15 * * 1-5', updateHistoryData)
+
+
 //App sets
 app.set('trust proxy', 1);
 
@@ -47,5 +54,7 @@ app.use(antiXSS)
 //Routes middleware
 app.use(apiRouter);
 
+//Try downloader
+//downloadData()
 //Run app
 app.listen(process.env.PORT || 3000)
