@@ -1,7 +1,20 @@
+const readFile = require("../js/readFile")
 function parseCommand(req, res, next) {
+    
+    if(req.params.command == null) {
+        req.command = false;
+        next();
+        return;
+    }
+    
+    // If no commands are present, load them
+    if(req.commands == null) {
+        req.commands = readFile("./private/files/commands.json");
+    }
     
     // Go through json commands, check if keyword is contained
     const val = recursion(req.params.command, req.commands);
+    
     if(val == null) {
         req.command = false;
     }
