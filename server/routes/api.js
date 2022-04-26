@@ -7,11 +7,11 @@ router.get("/api/test", (req, res) => {
 })
 
 router.post("/api/test", (req, res) => {
-    res.status(200).json(req.body.hobbies[0].swimming);
+    res.status(200).json(req.body);
 })
 
-router.get("/api/sendCommand:command", commandParser, (req, res) => {
-    res.send("no");
+router.get("/api/sendCommand/:command", commandParser, (req, res) => {
+    res.send(req.command);
 });
 
 module.exports = router
