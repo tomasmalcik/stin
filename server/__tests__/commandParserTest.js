@@ -41,5 +41,5 @@ describe("Testing of command parser method", () => {
        const res = mockResponse();
        await commandParser(req, res, () => {});
        expect(req.command).toEqual(false);
-});
+    });
 });
