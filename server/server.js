@@ -5,7 +5,22 @@ if (process.env.NODE_ENV !== "production") {
 const express = require("express")
 const app = express()
 const bodyParser = require("body-parser")
+const readFile = require("./private/js/readFile");
 
+//Load commands
+var commands = readFile("./private/files/commands.json");
+if(!commands) { //Handle error
+    console.error("Could not read commands.. trying backup file");
+    commands = readFile("./backup/files/commands.json");
+
+    if(!commands) {
+        throw new Error("Could not load commands... exiting");
+    }
+
+    console.log("Commands loaded");
+}else {
+    console.log("Commands loaded");
+}
 
 //Middleware imports
 const antiXSS = require("./private/middlewares/antiXSS");
