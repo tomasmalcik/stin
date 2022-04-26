@@ -1,6 +1,10 @@
 const commandHandlers = require("../private/js/commandHandlers");
 const {REG_TIME_FORMAT} = require("../private/js/constants");
 
+if (process.env.NODE_ENV !== "production") {
+    require("dotenv").config()
+}
+
 describe("Testing behavior of command handlers", () => {
     describe("Testing of time handler", () => {
         test("Should return date in format hh:mm:ss", async () => {
@@ -52,5 +56,12 @@ describe("Testing behavior of command handlers", () => {
         });
 
         
-    })
+    });
+
+    describe("Testing of name handler", () => {
+        test("Should return server name", async () => {
+            const res = await commandHandlers.handleName();
+            expect(res).toMatch("My name is El Botterino What's yours ?");
+        })
+    });
 })

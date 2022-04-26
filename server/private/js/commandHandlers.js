@@ -17,4 +17,8 @@ commandHandlers.getTime = (date) => {
     return [hours, minutes, seconds]; 
 }
 
+commandHandlers.handleName = () => {
+    return "My name is El Botterino What's yours ?";
+}
+
 module.exports = commandHandlers;
