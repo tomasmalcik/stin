@@ -61,7 +61,7 @@ describe("Testing behavior of command handlers", () => {
     describe("Testing of name handler", () => {
         test("Should return server name", async () => {
             const res = await commandHandlers.handleName();
-            expect(res).toMatch("El Botterino");
+            expect(res).toMatch("My name is El Botterino What's yours ?");
         })
     });
 })
