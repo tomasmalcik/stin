@@ -9,7 +9,7 @@ function parseCommand(req, res, next) {
     
     // If no commands are present, load them
     if(req.commands == null) {
-        req.commands = readFile("./private/files/commands.json");
+        req.commands = readFile("./private/files/commands.json", "json");
     }
     
     // Go through json commands, check if keyword is contained

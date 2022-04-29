@@ -7,14 +7,14 @@ const app = express()
 const bodyParser = require("body-parser")
 const readFile = require("./private/js/readFile");
 const cron = require("node-cron")
-const { updateHistoryData } = require("./private/js/downloadData")
+const { updateHistoryData } = require("./private/js/historyUpdater")
 
 
 //Load commands
-var commands = readFile("./private/files/commands.json");
+var commands = readFile("./private/files/commands.json", "json");
 if(!commands) { //Handle error
     console.error("Could not read commands.. trying backup file");
-    commands = readFile("./backup/files/commands.json");
+    commands = readFile("./backup/files/commands.json", "json");
 
     if(!commands) {
         throw new Error("Could not load commands... exiting");
@@ -35,6 +35,7 @@ const apiRouter = require("./routes/api")
 //Cron schedule download
 cron.schedule('0 */5 13-15 * * 1-5', updateHistoryData)
 
+updateHistoryData();
 
 //App sets
 app.set('trust proxy', 1);

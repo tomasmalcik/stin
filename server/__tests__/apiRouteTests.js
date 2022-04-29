@@ -1,9 +1,6 @@
 const request = require("supertest");
 const express =  require('express');
-const readFile = require('../private/js/readFile')
 const router = require('../routes/api');
-
-const commands = readFile("./private/files/commands.json");
 
 const app = new express();
 app.use(express.json())

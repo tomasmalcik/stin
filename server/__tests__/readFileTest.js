@@ -2,7 +2,7 @@ const readFile = require("../private/js/readFile");
 
 describe("Reading from a file", function() {
     test("Should read and transform to json", () => {
-        let data = readFile("./private/files/commands.json"); //Route to fit location of function
+        let data = readFile("./private/files/commands.json", "json"); //Route to fit location of function
         expect(data).toEqual(
             {
                 what: {

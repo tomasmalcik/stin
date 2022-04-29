@@ -1,14 +1,17 @@
 const fs = require("fs");
 const https = require("https");
 
-function downloadData() {
+async function downloadData() {
     const file = fs.createWriteStream("./private/files/downloaded.txt")
     const builtURL = buildURL("https://www.cnb.cz/cs/financni-trhy/devizovy-trh/kurzy-devizoveho-trhu/kurzy-devizoveho-trhu/denni_kurz.txt;jsessionid=6725F461EB18FCE30107706921C61012?date=")
-    const req = https.get(builtURL, (res) => {
+    const req = https.get(builtURL, async (res) => {
         res.pipe(file);
-        file.on("finish", () => {
+        if(res.statusCode != 200) {
+             status = false;
+        }
+
+        await file.on("finish", async () => {
             file.close();
-            console.log("Data successfully downloaded")
         })
     })
 }
@@ -36,8 +39,4 @@ function getDate() {
     return [year, month, day];
 }
 
-function updateHistoryData() {
-    downloadData(); //Download data
-}
-
-module.exports = {downloadData, getDate, buildURL, updateHistoryData}
+module.exports = {downloadData, getDate, buildURL}

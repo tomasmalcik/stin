@@ -1,7 +1,7 @@
 const commandParser = require("../private/middlewares/parseCommand")
 const readFile = require("../private/js/readFile");
 
-const commands = readFile("./private/files/commands.json");
+const commands = readFile("./private/files/commands.json", "json");
 
 const mockRequest = (command) => ({
     params: {
