@@ -1,19 +1,45 @@
 const fs = require("fs");
 const https = require("https");
+const writeFile = require('../js/writeFile')
 
-async function downloadData() {
-    const file = fs.createWriteStream("./private/files/downloaded.txt")
-    const builtURL = buildURL("https://www.cnb.cz/cs/financni-trhy/devizovy-trh/kurzy-devizoveho-trhu/kurzy-devizoveho-trhu/denni_kurz.txt;jsessionid=6725F461EB18FCE30107706921C61012?date=")
-    const req = https.get(builtURL, async (res) => {
-        res.pipe(file);
-        if(res.statusCode != 200) {
-             status = false;
-        }
-
-        await file.on("finish", async () => {
-            file.close();
-        })
+async function downloadData(url) {
+    const builtURL = buildURL(url);
+    var data = {};
+    await download(builtURL)
+    .then(res => {
+        data = res; 
     })
+    .catch(err => {
+        console.error('Ran into error while downloading data... ');
+        data.statusCode = 400;
+    });
+
+    return (data.statusCode != 200) ? false : data.body;
+}
+
+function download(url) {
+    return new Promise((resolve, reject) => {
+        https.get(url, async (res) => {
+            data = []
+            res.on('data', (chunk) => {
+                data.push(chunk);
+            });
+    
+            res.on('end', () => {
+                if(res.statusCode < 200 || res.statusCode >= 300) {
+                    reject('Error');
+                }
+                resolve({
+                    statusCode: res.statusCode,
+                    body: Buffer.concat(data).toString()
+                })
+            })
+
+            res.on('error', (err) => {
+                reject('Error');
+            })
+        })
+    });
 }
 
 function buildURL(url) {
@@ -39,4 +65,4 @@ function getDate() {
     return [year, month, day];
 }
 
-module.exports = {downloadData, getDate, buildURL}
+module.exports = {downloadData, getDate, buildURL, download}

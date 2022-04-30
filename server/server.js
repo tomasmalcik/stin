@@ -23,7 +23,7 @@ if(!commands) { //Handle error
     console.log("Commands loaded");
 }else {
     console.log("Commands loaded");
-}
+} 
 
 //Middleware imports
 const antiXSS = require("./private/middlewares/antiXSS");
@@ -35,7 +35,6 @@ const apiRouter = require("./routes/api")
 //Cron schedule download
 cron.schedule('0 */5 13-15 * * 1-5', updateHistoryData)
 
-updateHistoryData();
 
 //App sets
 app.set('trust proxy', 1);

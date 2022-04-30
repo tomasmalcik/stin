@@ -21,8 +21,5 @@ commandHandlers.handleName = () => {
     return "My name is El Botterino What's yours ?";
 }
 
-commandHandlers.getEURHistory = () => {
-    
-}
 
 module.exports = commandHandlers;

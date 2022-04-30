@@ -11,8 +11,6 @@ function readFile(path, type) {
                 return raw;
             case "json":
                 return JSON.parse(raw);
-            default:
-                return false;
         }
     }else {
         return false;

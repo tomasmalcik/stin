@@ -4,32 +4,38 @@ const { downloadData } = require("./downloadData");
 const {writeToFile} = require("./writeFile");
 
 
-function updateHistoryData() {
-    downloadData() //Download data
-    var downloadedData =  parseDownloaded(readFile("./private/files/downloaded.txt", "txt"), "EUR");   //Load data from file
+async function updateHistoryData() {
+    
+    var downloadedData = await downloadData("https://www.cnb.cz/cs/financni-trhy/devizovy-trh/kurzy-devizoveho-trhu/kurzy-devizoveho-trhu/denni_kurz.txt;jsessionid=6725F461EB18FCE30107706921C61012?date=")
+
+
+    if(!downloadedData) {
+        console.log("Here")
+        return false;
+    }
+
+
+    var parsed = parseDownloaded(downloadedData, "EUR");
+
+
     var historyData = readFile("./private/files/historyEURData.json", "json");
-    if(downloadedData != false &&  !(downloadedData[0] in historyData) ) {
-        historyData[downloadedData[0]] = {
+    if(downloadedData != false &&  !(parsed[0] in historyData) ) {
+        historyData[parsed[0]] = {
             "currency": "CZK",
-            "course": downloadedData[1][downloadedData[1].length-1],
+            "course": parsed[parsed.length -1],
             "code": "CZK"
         }
-        if(writeToFile("./private/files/historyEURData.json", JSON.stringify(historyData), "w")) {
+        if(await writeToFile("./private/files/historyEURData.json", JSON.stringify(historyData), "w")) {
             console.log("LOG: Data updated successfully");
         }
     }
 }
 
-
 function parseDownloaded(data, curr) {
-    //console.log(data);
-    if(!data) {
-        return false;
-    }
 
     data = data.split("\n");
 
-    if(!data.includes("měna")) {
+    if(!data[1].includes("měna")) {
         return false;
     }
 
@@ -45,5 +51,6 @@ function parseDownloaded(data, curr) {
 
 
 }
+
 
 module.exports = {updateHistoryData};
