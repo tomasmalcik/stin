@@ -19,7 +19,7 @@ describe("Downloader and utility functions testing.", () => {
     });
 
     test("Should export date in [year,month, day] format, expecting 01.06.2015", () => {
-        mockdate.set(1434319925275);
+        mockdate.set('2015-06-01');
         var date = downloader.getDate();
         expect(date[0]).toEqual('2015');
         expect(date[1]).toEqual('06');
