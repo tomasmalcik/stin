@@ -7,7 +7,6 @@ async function writeToFile(path, string) {
                    ret =  true;
                })
                .catch(err => {
-                   console.error("Could not save to file");
                    ret =  false;
                })
 

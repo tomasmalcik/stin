@@ -1,5 +1,5 @@
 const { writeToFile } = require("../private/js/writeFile");
-const {vol, fs} = require("memfs");
+const mock = require("mock-fs");
 
 
 
@@ -12,11 +12,17 @@ describe("Testing of writefile function",  () => {
     });
 
     test("Should fail writing to a file, because it is in read-only mode", async () => {
-        const path = "./private/files/writeTst.txt";
-        await fs.chmod(path, 0o400, async () => {
-            const res = await writeToFile(path, "test");
-            expect(res).toBe(false);
-        });
+        mock({
+            '/test.txt': mock.file({
+                mode: 0o444,
+                content: 'test'
+            })
+            
+        })
+
+        const res = await writeToFile('/test.txt', "test");
+        expect(res).toBe(false);
+        mock.restore()
     })
 
 })
