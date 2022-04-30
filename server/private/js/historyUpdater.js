@@ -5,7 +5,6 @@ const {writeToFile} = require("./writeFile");
 
 
 async function updateHistoryData() {
-    
     var downloadedData = await downloadData("https://www.cnb.cz/cs/financni-trhy/devizovy-trh/kurzy-devizoveho-trhu/kurzy-devizoveho-trhu/denni_kurz.txt;jsessionid=6725F461EB18FCE30107706921C61012?date=")
 
 
@@ -14,19 +13,20 @@ async function updateHistoryData() {
         return false;
     }
 
-
     var parsed = parseDownloaded(downloadedData, "EUR");
-
-
     var historyData = readFile("./private/files/historyEURData.json", "json");
+    
     if(downloadedData != false &&  !(parsed[0] in historyData) ) {
         historyData[parsed[0]] = {
             "currency": "CZK",
-            "course": parsed[parsed.length -1],
+            "course": parsed[1][parsed[1].length-1],
             "code": "CZK"
         }
-        if(await writeToFile("./private/files/historyEURData.json", JSON.stringify(historyData), "w")) {
-            console.log("LOG: Data updated successfully");
+        const ret = await writeToFile("./private/files/historyEURData.json", JSON.stringify(historyData));
+        if(ret) {
+            console.log("Successfully saved");
+        }else {
+            console.error("Ran into error while saving data");
         }
     }
 }
