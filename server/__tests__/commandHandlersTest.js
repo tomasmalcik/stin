@@ -1,6 +1,7 @@
 const commandHandlers = require("../private/js/commandHandlers");
 const {REG_TIME_FORMAT} = require("../private/js/constants");
 const mock = require("mock-fs");
+const readFile = require("../private/js/readFile");
 
 if (process.env.NODE_ENV !== "production") {
     require("dotenv").config()
@@ -68,6 +69,8 @@ describe("Testing behavior of command handlers", () => {
 
     describe("Testing of eur history handler", () => {
         test("Should return history table for euro", async () => {
+            var ddd = await readFile("./private/files/historyEURData.json");
+            console.log(ddd);
             var data = await commandHandlers.handleEURHistory();
             expect(data).toMatch(/table/);
         });
