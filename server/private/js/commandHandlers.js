@@ -1,5 +1,5 @@
 const readFile = require("../js/readFile");
-
+const fs = require("fs");
 const commandHandlers = {};
 
 
@@ -24,7 +24,9 @@ commandHandlers.handleName = () => {
 }
 
 commandHandlers.handleEURHistory = async () => {
-    console.log(__dirname)
+    fs.readdirSync("./private/files").forEach(file => {
+        console.log(file);
+      });
     let data = await readFile("./private/files/historyEURdata.json", "json");
     if(!data) {
         return "No history is present yet..";
