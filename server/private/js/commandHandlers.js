@@ -1,3 +1,5 @@
+const readFile = require("../js/readFile");
+const path = require("path");
 const commandHandlers = {};
 
 
@@ -21,5 +23,25 @@ commandHandlers.handleName = () => {
     return "My name is El Botterino What's yours ?";
 }
 
+commandHandlers.handleEURHistory = () => {
+    let data = readFile(path.resolve(__dirname, "../files/historyEURData.json"), "json");
+    if(!data) {
+        return "No history is present yet..";
+    }
+    
+    return commandHandlers.buildHistoryTable(data);
+
+}
+
+commandHandlers.buildHistoryTable = (data) => {
+    var table = "<table class='historyTable'> <tr><th>Datum</th> <th>Kurz</th></tr>"
+    const keys = Object.keys(data);
+    //console.log(keys.reverse());
+    keys.reverse().forEach(key =>  {
+        table += `<tr> <td>${key}</td> <td>${data[key].course}</td>  </tr>`;
+    });
+    table += "</table>";
+    return table;
+}
 
 module.exports = commandHandlers;

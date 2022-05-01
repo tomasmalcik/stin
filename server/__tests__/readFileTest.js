@@ -11,6 +11,11 @@ describe("Reading from a file", () => {
                   'exchange rate': { eur: 'handleEUR' },
                   course: { eur: 'handleEUR' }
                 },
+                show: {
+                    "eur": {
+                        "history": 'handleEURHistory'
+                    }
+                },
                 help: 'handleHelp'
               }
         )

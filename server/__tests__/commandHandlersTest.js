@@ -1,5 +1,7 @@
 const commandHandlers = require("../private/js/commandHandlers");
 const {REG_TIME_FORMAT} = require("../private/js/constants");
+const mock = require("mock-fs");
+const path = require("path");
 
 if (process.env.NODE_ENV !== "production") {
     require("dotenv").config()
@@ -63,5 +65,38 @@ describe("Testing behavior of command handlers", () => {
             const res = await commandHandlers.handleName();
             expect(res).toMatch("My name is El Botterino What's yours ?");
         })
+    });
+
+    describe("Testing of eur history handler", () => {
+        test("Should return history table for euro", async () => {
+            var data = commandHandlers.handleEURHistory();
+            expect(data).toMatch(/table/);
+        });
+
+        test("Should return 'No history is present yet..'", async () => {
+            let pa = path.resolve(__dirname, "..", "private", "files", "historyEURData.json");
+            
+            mock({
+                pa: mock.file({
+                    content: ''
+                })
+            });
+            
+            var data = commandHandlers.handleEURHistory();
+            expect(data).toBe('No history is present yet..');
+        });
+
+        test("Should return table with one row", () => {
+            const mockData = {
+                "22.02.2022": {
+                    "course": "25.55",
+                    "code": "CZK",
+                    "currency": "CZK"
+                }
+            }
+            const data = commandHandlers.buildHistoryTable(mockData);
+            expect(data).toMatch(/22.02.2022/);
+            expect(data).toMatch(/25.55/);
+        });
     });
 })

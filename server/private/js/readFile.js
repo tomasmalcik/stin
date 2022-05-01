@@ -13,6 +13,7 @@ function readFile(path, type) {
                 return JSON.parse(raw);
         }
     }else {
+        console.log(path);
         return false;
     }
 }

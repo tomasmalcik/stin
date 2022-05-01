@@ -9,5 +9,10 @@
             "eur": "handleEUR"
         }
     },
+    "show": {
+        "eur": {
+            "history": "handleEURHistory"
+        }
+    },
     "help": "handleHelp"
 }
