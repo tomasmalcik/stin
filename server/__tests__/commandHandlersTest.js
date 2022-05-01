@@ -99,4 +99,22 @@ describe("Testing behavior of command handlers", () => {
             expect(data).toMatch(/25.55/);
         });
     });
+
+    describe("Testing of eur handler", () => {
+        test("Should return value of eur", async () => {
+            const res = await commandHandlers.handleEUR();
+            expect(res).toMatch(/course of EUR/);
+        });
+
+        test("Should return that EUR data could not be fetched", async () => {
+            mock({
+                "./private/files/historyEURData.json": mock.file({
+                    content: ''
+                })
+            });
+            const res = await commandHandlers.handleEUR("./private/files/historyEURData.json");
+            expect(res).toMatch(/Could not/);
+            mock.restore();
+        });
+    });
 })

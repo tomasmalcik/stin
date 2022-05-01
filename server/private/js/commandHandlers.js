@@ -23,8 +23,8 @@ commandHandlers.handleName = () => {
     return "My name is El Botterino What's yours ?";
 }
 
-commandHandlers.handleEURHistory = async () => {
-    let data = await readFile("./private/files/historyEURdata.json", "json");
+commandHandlers.handleEURHistory = async (path = "./private/files/historyEURdata.json") => {
+    let data = await readFile(path, "json");
     if(!data) {
         return "No history is present yet..";
     }
@@ -41,6 +41,24 @@ commandHandlers.buildHistoryTable = (data) => {
     });
     table += "</table>";
     return table;
+}
+
+commandHandlers.handleEUR = async (path = "./private/files/history data.json") => {
+    var course = await commandHandlers.getCurrencyData(path, "EUR");
+    return "Todays course of EUR is "+ course;
+
+}
+
+commandHandlers.getCurrencyData = async (path, type) => {
+    let split = path.split(" ")
+    let builtPath = split[0] + type + split[1];
+    let data = await readFile(builtPath, "json");
+    if(!data) {
+        return "Could not load EUR data..";
+    }
+    var keys = Object.keys(data);
+    var last = keys[keys.length - 1];
+    return data[last].course;
 }
 
 module.exports = commandHandlers;
