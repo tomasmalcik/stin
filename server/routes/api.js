@@ -10,7 +10,7 @@ router.post("/api/test", (req, res) => {
     res.status(200).json(req.body);
 })
 
-router.get("/api/sendCommand/:command?", commandParser, (req, res) => {
+router.get("/api/sendCommand/:command?", commandParser, async (req, res) => {
 
     if(!req.command) {
         return res.status(400).json({
@@ -19,7 +19,7 @@ router.get("/api/sendCommand/:command?", commandParser, (req, res) => {
     }
 
     return res.status(200).json({
-        message: commandHandlers[req.command]()
+        message: await commandHandlers[req.command]()
     });
 });
 

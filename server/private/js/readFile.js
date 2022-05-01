@@ -2,10 +2,12 @@ const fs = require("fs");
 
 
 function readFile(path, type) {
+
     //Check if path exists
     if(fs.existsSync(path)) {
         //works
         let raw = fs.readFileSync(path, 'utf8');
+        
         switch(type){ //Read based on type
             case "txt":
                 return raw;
@@ -14,6 +16,7 @@ function readFile(path, type) {
         }
     }else {
         return false;
+        
     }
 }
 
