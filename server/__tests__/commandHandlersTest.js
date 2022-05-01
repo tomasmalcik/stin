@@ -74,10 +74,9 @@ describe("Testing behavior of command handlers", () => {
         });
 
         test("Should return 'No history is present yet..'", async () => {
-            let pa = path.resolve(__dirname, "..", "private", "files", "historyEURData.json");
             
             mock({
-                pa: mock.file({
+                "./private/files/historyEURData.json": mock.file({
                     content: ''
                 })
             });

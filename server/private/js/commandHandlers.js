@@ -1,5 +1,5 @@
 const readFile = require("../js/readFile");
-const path = require("path");
+
 const commandHandlers = {};
 
 
@@ -24,7 +24,7 @@ commandHandlers.handleName = () => {
 }
 
 commandHandlers.handleEURHistory = () => {
-    let data = readFile(path.resolve(__dirname, "../files/historyEURData.json"), "json");
+    let data = readFile("./private/files/historyEURdata.json", "json");
     if(!data) {
         return "No history is present yet..";
     }
