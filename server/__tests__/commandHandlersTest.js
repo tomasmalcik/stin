@@ -83,6 +83,7 @@ describe("Testing behavior of command handlers", () => {
             
             var data = await commandHandlers.handleEURHistory();
             expect(data).toBe('No history is present yet..');
+            mock.restore();
         });
 
         test("Should return table with one row", () => {
