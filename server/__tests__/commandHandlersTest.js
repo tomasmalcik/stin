@@ -72,17 +72,17 @@ describe("Testing behavior of command handlers", () => {
             expect(data).toMatch(/table/);
         });
 
-        test("Should return 'No history is present yet..'", async () => {
+        // test("Should return 'No history is present yet..'", async () => {
             
-            mock({
-                "./private/files/historyEURData.json": mock.file({
-                    content: ''
-                })
-            });
+        //     mock({
+        //         "./private/files/historyEURData.json": mock.file({
+        //             content: ''
+        //         })
+        //     });
             
-            var data = commandHandlers.handleEURHistory();
-            expect(data).toBe('No history is present yet..');
-        });
+        //     var data = commandHandlers.handleEURHistory();
+        //     expect(data).toBe('No history is present yet..');
+        // });
 
         test("Should return table with one row", () => {
             const mockData = {
