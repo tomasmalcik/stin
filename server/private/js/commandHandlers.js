@@ -25,7 +25,6 @@ commandHandlers.handleName = () => {
 
 commandHandlers.handleEURHistory = async () => {
     let data = await readFile("./private/files/historyEURdata.json", "json");
-    console.log(data);
     if(!data) {
         return "No history is present yet..";
     }
@@ -35,14 +34,12 @@ commandHandlers.handleEURHistory = async () => {
 }
 
 commandHandlers.buildHistoryTable = (data) => {
-    console.log(data)
     var table = "<table class='historyTable'> <tr><th>Datum</th> <th>Kurz</th></tr>"
     const keys = Object.keys(data);
     keys.reverse().forEach(key =>  {
         table += `<tr> <td>${key}</td> <td>${data[key].course}</td>  </tr>`;
     });
     table += "</table>";
-    console.log(table)
     return table;
 }
 
