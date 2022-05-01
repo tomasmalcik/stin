@@ -1,7 +1,6 @@
 const commandHandlers = require("../private/js/commandHandlers");
 const {REG_TIME_FORMAT} = require("../private/js/constants");
 const mock = require("mock-fs");
-const path = require("path");
 
 if (process.env.NODE_ENV !== "production") {
     require("dotenv").config()

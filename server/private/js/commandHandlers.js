@@ -36,7 +36,6 @@ commandHandlers.handleEURHistory = () => {
 commandHandlers.buildHistoryTable = (data) => {
     var table = "<table class='historyTable'> <tr><th>Datum</th> <th>Kurz</th></tr>"
     const keys = Object.keys(data);
-    //console.log(keys.reverse());
     keys.reverse().forEach(key =>  {
         table += `<tr> <td>${key}</td> <td>${data[key].course}</td>  </tr>`;
     });
