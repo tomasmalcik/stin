@@ -9,13 +9,12 @@ async function updateHistoryData() {
 
 
     if(!downloadedData) {
-        console.log("Here")
         return false;
     }
 
     var parsed = parseDownloaded(downloadedData, "EUR");
     var historyData = readFile("./private/files/historyEURData.json", "json");
-    
+
     if(downloadedData != false &&  !(parsed[0] in historyData) ) {
         historyData[parsed[0]] = {
             "currency": "CZK",
