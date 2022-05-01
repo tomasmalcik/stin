@@ -2,7 +2,11 @@ const fs = require("fs");
 
 
 function readFile(path, type) {
-    console.log(__dirname)
+
+    fs.readdirSync("./private/files/").forEach(file => {
+        console.log(file);
+      })
+
     //Check if path exists
     if(fs.existsSync(path)) {
         //works
