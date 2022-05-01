@@ -2,6 +2,7 @@ const fs = require("fs");
 
 
 function readFile(path, type) {
+    console.log(__dirname)
     //Check if path exists
     if(fs.existsSync(path)) {
         //works

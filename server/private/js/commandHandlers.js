@@ -24,6 +24,7 @@ commandHandlers.handleName = () => {
 }
 
 commandHandlers.handleEURHistory = async () => {
+    console.log(__dirname)
     let data = await readFile("./private/files/historyEURdata.json", "json");
     if(!data) {
         return "No history is present yet..";
