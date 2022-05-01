@@ -3,10 +3,6 @@ const fs = require("fs");
 
 function readFile(path, type) {
 
-    fs.readdirSync("./private/files/").forEach(file => {
-        console.log(file);
-      })
-
     //Check if path exists
     if(fs.existsSync(path)) {
         //works
@@ -19,7 +15,6 @@ function readFile(path, type) {
                 return JSON.parse(raw);
         }
     }else {
-        console.log("Cant find.." + path)
         return false;
         
     }

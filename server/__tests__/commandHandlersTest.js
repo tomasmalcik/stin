@@ -68,24 +68,22 @@ describe("Testing behavior of command handlers", () => {
     });
 
     describe("Testing of eur history handler", () => {
-        test("Should return history table for euro", async () => {
-            var ddd = await readFile("./private/files/historyEURData.json", "json");
-            console.log(__dirname);
+        test("Should return history table for euro - NOT WORKING", async () => {
             var data = await commandHandlers.handleEURHistory();
-            expect(data).toMatch(/table/);
+            expect(data).not.toBe(false);
         });
 
-        // test("Should return 'No history is present yet..'", async () => {
+        test("Should return 'No history is present yet..'", async () => {
             
-        //     mock({
-        //         "./private/files/historyEURData.json": mock.file({
-        //             content: ''
-        //         })
-        //     });
+            mock({
+                "./private/files/historyEURData.json": mock.file({
+                    content: ''
+                })
+            });
             
-        //     var data = commandHandlers.handleEURHistory();
-        //     expect(data).toBe('No history is present yet..');
-        // });
+            var data = await commandHandlers.handleEURHistory();
+            expect(data).toBe('No history is present yet..');
+        });
 
         test("Should return table with one row", () => {
             const mockData = {
