@@ -6,6 +6,7 @@ function readFile(path, type) {
     if(fs.existsSync(path)) {
         //works
         let raw = fs.readFileSync(path, 'utf8');
+        
         switch(type){ //Read based on type
             case "txt":
                 return raw;

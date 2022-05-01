@@ -68,7 +68,7 @@ describe("Testing behavior of command handlers", () => {
 
     describe("Testing of eur history handler", () => {
         test("Should return history table for euro", async () => {
-            var data = commandHandlers.handleEURHistory();
+            var data = await commandHandlers.handleEURHistory();
             expect(data).toMatch(/table/);
         });
 
