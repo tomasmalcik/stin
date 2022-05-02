@@ -47,14 +47,14 @@ commandHandlers.buildHistoryTable = (data) => {
     return table;
 }
 
-commandHandlers.handleEUR = async (pa = path.join(__dirname, "..", "files", "historyEURData.json")) => {
+commandHandlers.handleEUR = async (pa = path.join(__dirname, "..", "files", "history Data.json")) => {
     var course = await commandHandlers.getCurrencyData(pa, "EUR");
-    return "Todays course of EUR is "+ course;
+    return "Todays course of EUR is "+ course + "CZK";
 
 }
 
-commandHandlers.getCurrencyData = async (path, type) => {
-    let split = path.split(" ")
+commandHandlers.getCurrencyData = async (pa, type) => {
+    let split = pa.split(" ")
     let builtPath = split[0] + type + split[1];
     let data = await readFile(builtPath, "json");
     if(!data) {
