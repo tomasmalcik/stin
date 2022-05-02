@@ -40,8 +40,10 @@ html,body {
     background-image: url("../public/images/user.png");
     background-color: #8286a1;
     background-size: 60%;
+    margin-right: 15px;
 }
 
 .icon-ai {
     background-image: url("../public/images/avatar.png");
+    margin-left: 15px;
 }

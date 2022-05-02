@@ -1,47 +1,16 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { ToastContainer, toast } from 'react-toastify';
 
 import Message from '../Message/Message';
-import getResponse from '../../api/getResponse';
+import getResponse from '../../api/getResponse'
 
 import './Messanger.css'
 import 'react-toastify/dist/ReactToastify.css';
 
-export default function Messanger() {
+function Messanger() {
 
     const [command, setCommand] = React.useState('');
-    const [correspondence, setCorrespondence] = React.useState([{type: "ai", message: "test"}]);
-
-    const sendQuestion = async () => {
-        //Check if message is not ''
-        if(command === '') {
-            toast("Message cannot be empty..");
-            return;
-        }
-
-        //try contacting api
-        const response = await getResponse(command);
-        if(response) { //Got some kind of response
-            setCorrespondence((prevCorrespondence) => {
-                //Save users question
-                const userQuestion = {
-                    type: "user",
-                    message: command
-                }
-                const aiResponse = {
-                    type: "ai",
-                    message: response
-                }
-
-                //Save them to correspondence
-                console.log(prevCorrespondence);
-            });
-            setCommand('');
-            console.log(correspondence)
-        } 
-    }
-
-    //React.useEffect()
+    const [correspondence, setCorrespondence] = React.useState([]);
 
     return (
         <div className="messanger">
@@ -56,31 +25,68 @@ export default function Messanger() {
                 </ul>
             </div>
             <div className='message-content' data-testid="content">
-                {
-                    correspondence?.length > 0 ? 
-                    (
-                      <div className="message-wrapper" data-testid="message-wrapper">
-                          {console.log(correspondence)}
-                          <Message data = {correspondence[0]} />
-                      </div>  
-                    ) : (
-                        <div className='begin-conversation' data-testid="test-empty">
-                            Start conversation by typing in the text field..
+                <div className="message-wrapper" data-testid="message-wrapper">
+                    {correspondence?.length > 0 && correspondence.map((corr) => {
+                        
+                        return <Message data={corr} />
+                    })}
+
+                    {correspondence?.length == 0 && (
+                        <div data-testid="data-empty">
+                            Start conversation by typing something in text field
                         </div>
-                    )
-                }
+                    )}
+                </div>  
             </div>
             <div className='message-send'>
                 <input
                     placeholder='Send message'
                     value={command}
                     onChange={(e) => { setCommand(e.target.value) }}
+                    data-testid="command"
                 />
-                <button onClick={sendQuestion}>
+                <button data-testid="send" onClick={() => { sendQuestion(command, setCorrespondence, setCommand) }}>
                     Send
                 </button>
             </div>
-            <ToastContainer />
+            <ToastContainer data-testid="toast" />
+            <div data-testid="state" id="state" style={{"display": "none"}}></div>
         </div>
     )
 }
+
+
+
+function sendQuestion(command, setCorrespondence, setCommand) {
+    //Check if message is not ''
+    if(command === '') {
+        toast("Message cannot be empty..");
+        setCommand("help");
+        return;
+    }
+
+    const userQuestion = {
+        type: "user",
+        message: command
+    }
+
+    setCorrespondence((current) => [... current, userQuestion]); //Add users question
+
+    setTimeout(async () => {
+        //try contacting api
+        const response = await getResponse(command);
+        if(response) { //Got some kind of response
+            const aiResponse = {
+                type: "ai",
+                message: response
+            }
+            setCorrespondence((current) => [... current, aiResponse] );
+            setCommand('');
+        } 
+    }, 1000); //Delay
+
+}
+
+
+
+export default Messanger

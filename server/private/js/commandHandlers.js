@@ -34,10 +34,10 @@ commandHandlers.handleEURHistory = async (path = "./private/files/historyEURdata
 }
 
 commandHandlers.buildHistoryTable = (data) => {
-    var table = "<table class='historyTable'> <tr><th>Datum</th> <th>Kurz</th></tr>"
+    var table = "<table class='historyTable'> <tr><th>Date</th> <th>Course</th></tr>"
     const keys = Object.keys(data);
     keys.reverse().forEach(key =>  {
-        table += `<tr> <td>${key}</td> <td>${data[key].course}</td>  </tr>`;
+        table += `<tr> <td>${key}</td> <td>${data[key].course} ${data[key].currency}</td>  </tr>`;
     });
     table += "</table>";
     return table;
