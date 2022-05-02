@@ -27,7 +27,9 @@ commandHandlers.handleName = () => {
 commandHandlers.handleEURHistory = async (pa = path.join(__dirname, "..", "files", "historyEURData.json")) => {
     console.log(__dirname)
     let data = await readFile(pa, "json");
+    console.log(data);
     if(!data) {
+        console.log(data);
         return "No history is present yet..";
     }
     
