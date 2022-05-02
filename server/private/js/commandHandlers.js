@@ -49,7 +49,7 @@ commandHandlers.buildHistoryTable = (data) => {
 
 commandHandlers.handleEUR = async (pa = path.join(__dirname, "..", "files", "history Data.json")) => {
     var course = await commandHandlers.getCurrencyData(pa, "EUR");
-    return "Todays course of EUR is "+ course;
+    return "Todays course of EUR is "+ course + "CZK";
 
 }
 
