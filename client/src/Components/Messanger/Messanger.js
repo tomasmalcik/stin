@@ -1,11 +1,47 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { ToastContainer, toast } from 'react-toastify';
+
+import Message from '../Message/Message';
+import getResponse from '../../api/getResponse';
+
 import './Messanger.css'
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Messanger() {
 
     const [command, setCommand] = React.useState('');
-   // const [correspondence, setCorrespondence] = React.useState([]);
-   const correspondence = [];
+    const [correspondence, setCorrespondence] = React.useState([{type: "ai", message: "test"}]);
+
+    const sendQuestion = async () => {
+        //Check if message is not ''
+        if(command === '') {
+            toast("Message cannot be empty..");
+            return;
+        }
+
+        //try contacting api
+        const response = await getResponse(command);
+        if(response) { //Got some kind of response
+            setCorrespondence((prevCorrespondence) => {
+                //Save users question
+                const userQuestion = {
+                    type: "user",
+                    message: command
+                }
+                const aiResponse = {
+                    type: "ai",
+                    message: response
+                }
+
+                //Save them to correspondence
+                console.log(prevCorrespondence);
+            });
+            setCommand('');
+            console.log(correspondence)
+        } 
+    }
+
+    //React.useEffect()
 
     return (
         <div className="messanger">
@@ -24,20 +60,8 @@ export default function Messanger() {
                     correspondence?.length > 0 ? 
                     (
                       <div className="message-wrapper" data-testid="message-wrapper">
-                        <div className='message-box user'>
-                            <div>
-                                <div className='icon sm icon-user'></div>
-                                <span>You</span>
-                            </div>
-                            <span>What is your name?</span>
-                        </div>
-                        <div className='message-box ai'>
-                            <div>
-                                <div className='icon sm icon-ai' style={{"margin-left": "15px"}}></div>
-                                <span>AI</span>
-                            </div>
-                            <span>My name is Botterino peperino.</span>
-                        </div>
+                          {console.log(correspondence)}
+                          <Message data = {correspondence[0]} />
                       </div>  
                     ) : (
                         <div className='begin-conversation' data-testid="test-empty">
@@ -52,10 +76,11 @@ export default function Messanger() {
                     value={command}
                     onChange={(e) => { setCommand(e.target.value) }}
                 />
-                <button>
+                <button onClick={sendQuestion}>
                     Send
                 </button>
             </div>
+            <ToastContainer />
         </div>
     )
 }

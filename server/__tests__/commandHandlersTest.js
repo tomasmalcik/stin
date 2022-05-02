@@ -116,5 +116,10 @@ describe("Testing behavior of command handlers", () => {
             expect(res).toMatch(/Could not/);
             mock.restore();
         });
+
+        test("Should return a string with help", () => {
+            const res = commandHandlers.handleHelp();
+            expect(res).toMatch(/Try asking/); //... Try asking what my name is ...
+        })
     });
 })

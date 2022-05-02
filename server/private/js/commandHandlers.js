@@ -61,4 +61,8 @@ commandHandlers.getCurrencyData = async (path, type) => {
     return data[last].course;
 }
 
+commandHandlers.handleHelp = () => {
+    return `Try asking for the current time.. like Hey, what time it is? or whats my name? or to show you a course of euro, or perhabs what the history of eur is`;
+}
+
 module.exports = commandHandlers;
