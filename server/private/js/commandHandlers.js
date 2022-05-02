@@ -1,6 +1,7 @@
 const readFile = require("../js/readFile");
 const fs = require("fs");
 const commandHandlers = {};
+const path = require("path");
 
 
 commandHandlers.handleTime = (date) => { //Used for testing purposes
@@ -23,8 +24,9 @@ commandHandlers.handleName = () => {
     return "My name is El Botterino What's yours ?";
 }
 
-commandHandlers.handleEURHistory = async (path = "./private/files/historyEURdata.json") => {
-    let data = await readFile(path, "json");
+commandHandlers.handleEURHistory = async (pa = path.join(__dirname, "..", "files", "historyEURData.json")) => {
+    console.log(__dirname)
+    let data = await readFile(pa, "json");
     if(!data) {
         return "No history is present yet..";
     }
