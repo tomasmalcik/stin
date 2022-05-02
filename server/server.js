@@ -8,7 +8,10 @@ const bodyParser = require("body-parser")
 const readFile = require("./private/js/readFile");
 const cron = require("node-cron")
 const { updateHistoryData } = require("./private/js/historyUpdater")
+const path = require("path");
 
+
+app.use(express.static(path.join(__dirname, "../client/build")));
 
 //Load commands
 var commands = readFile("./private/files/commands.json", "json");
