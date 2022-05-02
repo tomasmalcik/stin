@@ -81,7 +81,7 @@ describe("Testing behavior of command handlers", () => {
                 })
             });
             
-            var data = await commandHandlers.handleEURHistory();
+            var data = await commandHandlers.handleEURHistory('/private/files/historyEURData.json');
             expect(data).toBe('No history is present yet..');
             mock.restore();
         });
