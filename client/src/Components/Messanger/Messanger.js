@@ -4,7 +4,8 @@ import './Messanger.css'
 export default function Messanger() {
 
     const [command, setCommand] = React.useState('');
-    const [correspondence, setCorrespondence] = React.useState([]);
+   // const [correspondence, setCorrespondence] = React.useState([]);
+   const correspondence = [];
 
     return (
         <div className="messanger">
