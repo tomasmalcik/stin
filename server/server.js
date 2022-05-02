@@ -60,4 +60,4 @@ app.use(apiRouter);
 //Try downloader
 //downloadData()
 //Run app
-app.listen(process.env.PORT || 3000)
+app.listen(process.env.PORT || 5000)
