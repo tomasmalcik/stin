@@ -1,6 +1,6 @@
 import React     from 'react'
 import ReactDOM  from 'react-dom'
-import Messanger   from './Messanger'
+import Messanger  from './Messanger'
 import {render, fireEvent, getByTestId} from '@testing-library/react' 
 import '@testing-library/jest-dom/extend-expect'
 
@@ -8,16 +8,37 @@ import '@testing-library/jest-dom/extend-expect'
 describe("Testing of Messanger component", () => {
     test("Should render successfully", () => {
         const div = document.createElement("div");
-        ReactDOM.render(<Messanger />, div);
-        ReactDOM.unmountComponentAtNode(div);
+        const {getByTestId} = render(<Messanger />)
+        expect(getByTestId('content')).toBeInTheDocument();
     });
 
-    test("Should render no messages when app starts", () => {
+    test("Should render default when app starts", () => {
         const {getByTestId} = render(<Messanger />)
-        expect(getByTestId("test-empty")).toHaveTextContent(/Start/);
+        expect(getByTestId("data-empty")).toHaveTextContent(/Start/);
     })
 
-    test("Should render messages", () => {
+    test("Should use hook", () => {
+        const { container, rerender } = render(<Messanger />);
+        const inputCommand = getByTestId(container, "command");
+        const button = getByTestId(container, "send");
+
+        const comm = "what time";
+
+        fireEvent.change(inputCommand, { target: {value: comm} });
+        fireEvent.click(button);
+        rerender(<Messanger />);
+        expect(window.localStorage.getItem("correspondence")).not.toBe([]);
+
+    })
+
+    test("Should fire toast error", () => {
+        const { container, rerender } = render(<Messanger />);
+        const inputCommand = getByTestId(container, "command");
+        const button = getByTestId(container, "send");
+        fireEvent.click(button);
+        rerender(<Messanger />);
+        expect(inputCommand.value).toMatch("help");
         
     });
+
 })

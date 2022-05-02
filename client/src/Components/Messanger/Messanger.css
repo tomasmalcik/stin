@@ -46,6 +46,7 @@
 .messanger > .message-content {
     height: calc(100vh - 160px);
     padding: 60px 30px;
+    overflow-y: scroll;
 }
 
 .messanger > .message-content .message-box {
@@ -70,6 +71,7 @@
     border-radius: 20px;
     border-top-right-radius: 0;
     margin-top: -10px;
+    max-width: 50%;
 }
 
 .messanger > .message-content .message-box div {
@@ -89,6 +91,7 @@
     border-top-left-radius: 0;
     float: left;
     margin-top: -10px;
+    max-width: 50%;
 }
 
 .messanger > .message-send {
@@ -140,4 +143,27 @@
     color: #8a8a8a;
     font-style: italic;
     font-weight: 700;
+}
+
+/* hide scrollbar */
+.message-content::-webkit-scrollbar {
+    display: none;
+  }
+  
+/* Hide scrollbar for IE, Edge and Firefox */
+.message-content {
+-ms-overflow-style: none;  /* IE and Edge */
+scrollbar-width: none;  /* Firefox */
+}
+
+.historyTable {
+    border-collapse: collapse;
+    width: 100%;
+    margin-right: 50px;
+}
+
+.historyTable th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
 }
