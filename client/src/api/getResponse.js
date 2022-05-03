@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { Markup } from 'interweave';
-export default async function getResponse(message) {
+export async function getResponse(message) {
     var ret = "";
     const res = await axios.get("/api/sendCommand/"+message).catch((err) => {
         ret = "Invalid command, try typing help";
@@ -13,6 +13,6 @@ export default async function getResponse(message) {
     return (ret !== "") ? ret : res.data.message;
 }
 
-function isHtml(input) {
+export function isHtml(input) {
     return /<[a-z]+\d?(\s+[\w-]+=("[^"]*"|'[^']*'))*\s*\/?>|&#?\w+;/i.test(input);
 }

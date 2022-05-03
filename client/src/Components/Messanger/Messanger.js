@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react'
 import { ToastContainer, toast } from 'react-toastify';
 
 import Message from '../Message/Message';
-import getResponse from '../../api/getResponse'
+import {getResponse} from '../../api/getResponse'
 
 import './Messanger.css'
 import 'react-toastify/dist/ReactToastify.css';
