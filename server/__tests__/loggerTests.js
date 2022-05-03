@@ -19,7 +19,7 @@ describe("Test logger", () => {
     });
 
     test("Should return time with 03 at hours", () => {
-        mockdate.set('2022-01-18T02:33:37.000Z');
+        mockdate.set('2022-01-18T03:33:37.000Z');
         const mess = logger.buildLogMessage("ppp", "warning");
         expect(mess).toMatch(/03/);
         
