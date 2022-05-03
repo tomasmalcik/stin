@@ -10,7 +10,6 @@ const cron = require("node-cron")
 const { updateHistoryData } = require("./private/js/historyUpdater")
 const path = require("path");
 
-
 app.use(express.static(path.join(__dirname, "../client/build")));
 
 //Load commands
