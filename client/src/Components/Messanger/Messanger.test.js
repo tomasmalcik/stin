@@ -41,4 +41,20 @@ describe("Testing of Messanger component", () => {
         
     });
 
+    test("Should clear command after catching response", async () => {
+        const { container, rerender } = render(<Messanger />);
+        const inputCommand = getByTestId(container, "command");
+        const button = getByTestId(container, "send");
+
+        const comm = "what time";
+
+        fireEvent.change(inputCommand, { target: {value: comm} });
+        fireEvent.click(button);
+        rerender(<Messanger />);
+        setTimeout(() => {
+            expect(inputCommand.value).toBe('');
+        },2000)
+               
+    })
+
 })
