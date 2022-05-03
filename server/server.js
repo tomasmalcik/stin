@@ -36,7 +36,7 @@ const apiRouter = require("./routes/api")
 
 
 //Cron schedule download
-cron.schedule('0 */5 13-15 * * 1-5', updateHistoryData)
+cron.schedule('30 11-14 * * 1-5', updateHistoryData)
 
 
 //App sets
