@@ -2,6 +2,7 @@
 const readFile = require("./readFile");
 const { downloadData } = require("./downloadData");
 const {writeToFile} = require("./writeFile");
+const logger = require("./logger");
 
 
 async function updateHistoryData() {
@@ -9,6 +10,7 @@ async function updateHistoryData() {
 
 
     if(!downloadedData) {
+        logger.log("Could not download data", "error");
         return false;
     }
 
@@ -23,9 +25,9 @@ async function updateHistoryData() {
         }
         const ret = await writeToFile("./private/files/historyEURData.json", JSON.stringify(historyData));
         if(ret) {
-            console.log("Successfully saved");
+            logger.log("Successfully saved new data");
         }else {
-            console.error("Ran into error while saving data");
+            logger.log("Could not save data", "error");
         }
     }
 }

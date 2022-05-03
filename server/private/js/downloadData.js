@@ -1,6 +1,7 @@
 const fs = require("fs");
 const https = require("https");
 const writeFile = require('../js/writeFile')
+const logger = require("./logger");
 
 async function downloadData(url) {
     const builtURL = buildURL(url);
@@ -8,6 +9,7 @@ async function downloadData(url) {
     await download(builtURL)
     .then(res => {
         data = res; 
+        logger.log("Successfully downloaded data", "info");
     })
     .catch(err => {
         console.error('Ran into error while downloading data... ');
