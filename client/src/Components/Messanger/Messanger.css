@@ -204,6 +204,6 @@ scrollbar-width: none;  /* Firefox */
 
     .messanger > .message-content .message-box.ai > span,
     .messanger > .message-content .message-box.user > span {
-        max-width: 80%;
+        max-width:  80%;
     }
 }
