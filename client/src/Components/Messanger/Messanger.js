@@ -32,7 +32,7 @@ function Messanger() {
                     })}
 
                     {correspondence?.length == 0 && (
-                        <div data-testid="data-empty">
+                        <div data-testid="data-empty" className='begin-conversation'>
                             Start conversation by typing something in text field
                         </div>
                     )}
