@@ -201,4 +201,9 @@ scrollbar-width: none;  /* Firefox */
     .historyTable th, td {
         font-size: 0.8rem;
     }
+
+    .messanger > .message-content .message-box.ai > span,
+    .messanger > .message-content .message-box.user > span {
+        max-width: 80%;
+    }
 }
