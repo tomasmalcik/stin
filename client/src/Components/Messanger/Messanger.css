@@ -167,3 +167,38 @@ scrollbar-width: none;  /* Firefox */
     text-align: left;
     border-bottom: 1px solid #ddd;
 }
+
+@media (max-width: 991px) {
+    .messanger > .navbar > div {
+        align-items: center;
+    }
+
+    .messanger > .navbar > div > .icon {
+        width: 30px;
+        height: 30px;
+    }
+
+    .messanger > .navbar > div p {
+        font-size: 0.8rem;
+    }
+
+    .messanger > .navbar ul li {
+        font-size: 0.8rem;
+    }
+
+    .messanger .begin-conversation {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .messanger {
+        width: 100%;
+    }
+
+    .messanger > .message-content .message-box.user > span,
+    .messanger > .message-content .message-box.ai > span,
+    .historyTable th, td {
+        font-size: 0.8rem;
+    }
+}
