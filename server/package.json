@@ -27,5 +27,14 @@
     "mock-fs": "^5.1.2",
     "nodemon": "^2.0.15",
     "supertest": "^6.2.2"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "**/**/*.js",
+      "!private/js/downloadData.js",
+      "!private/js/historyUpdater.js",
+      "!server.js",
+      "!coverage/**/*.js"
+    ]
   }
 }
