@@ -1,3 +1,4 @@
+/*
 const downloader = require('../private/js/downloadData');
 const readFile = require('../private/js/readFile');
 const mockdate = require("mockdate");
@@ -28,4 +29,4 @@ describe("Downloader and utility functions testing.", () => {
     });
 
    
-})
+}) */
