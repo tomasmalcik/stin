@@ -1,6 +1,7 @@
 const commandHandlers = require("../private/js/commandHandlers");
 const {REG_TIME_FORMAT} = require("../private/js/constants");
 const mock = require("mock-fs");
+const p = require("path");
 const readFile = require("../private/js/readFile");
 
 if (process.env.NODE_ENV !== "production") {
@@ -122,4 +123,92 @@ describe("Testing behavior of command handlers", () => {
             expect(res).toMatch(/Try asking/); //... Try asking what my name is ...
         })
     });
+
+    describe("Testing of eur recommendation handler", () => {
+        afterEach(() => {
+            mock.restore();
+        })
+        test("Should build avg of 2 values: 2,4 => avg: 3", () => {
+            const res = commandHandlers.buildAVG([2,4]);
+            expect(res).toEqual(3);
+        });
+
+        test("Should recommend buying", () => {
+            const avg = 2.3;
+            const vals = [2.2,2.3,2.4];
+            const res = commandHandlers.checkRecommendation(vals, avg);
+            expect(res[0]).toBeTruthy();
+        });
+
+        test("Should not recommend buying", () => {
+            const vals = [2.9,2.8,1.1];
+            const avg = commandHandlers.buildAVG(vals);
+            const res = commandHandlers.checkRecommendation(vals, avg);
+            expect(res[0]).toBeFalsy();
+        });
+
+        test("Should test handler, return recommendation to buy", async () => {
+            mock({
+                "./foo": mock.file({
+                    content: JSON.stringify({
+                        "28.04.2022": {
+                            "currency": "CZK",
+                            "course":"24,530",
+                            "code":"CZK"
+                        },
+                        "29.04.2022": {
+                            "currency": "CZK",
+                            "course":"24,605",
+                            "code":"CZK"
+                        },
+                        "02.05.2022":{
+                            "currency":"CZK",
+                            "course":"24,670",
+                            "code":"CZK"
+                        }
+                    })
+                })
+            })
+            
+
+
+            const res = await commandHandlers.handleRecommendEUR("./foo");
+            expect(res).toMatch(/definetly buy/);
+
+            mock.restore();
+
+        })
+
+        test("Should test handler, return recommendation not to buy", async () => {
+            mock({
+                "./foo": mock.file({
+                    content: JSON.stringify({
+                        "28.04.2022": {
+                            "currency": "CZK",
+                            "course":"19,530",
+                            "code":"CZK"
+                        },
+                        "29.04.2022": {
+                            "currency": "CZK",
+                            "course":"24,605",
+                            "code":"CZK"
+                        },
+                        "02.05.2022":{
+                            "currency":"CZK",
+                            "course":"24,670",
+                            "code":"CZK"
+                        }
+                    })
+                })
+            })
+            
+
+
+            const res = await commandHandlers.handleRecommendEUR("./foo");
+            expect(res).toMatch(/definetly NOT buy/);
+
+            mock.restore();
+
+        })
+    })
 })
