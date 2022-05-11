@@ -16,8 +16,18 @@ describe("Reading from a file", () => {
                         "history": 'handleEURHistory'
                     }
                 },
-                help: 'handleHelp'
-              }
+                recommend: {
+                    buy: {
+                        eur: "handleRecommendEUR"
+                    }
+                },
+                should: {
+                    buy: {
+                        eur: "handleRecommendEUR"
+                    }
+                },
+                help: "handleHelp"
+            }
         )
     });
 

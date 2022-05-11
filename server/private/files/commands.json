@@ -14,5 +14,15 @@
             "history": "handleEURHistory"
         }
     },
+    "recommend": {
+        "buy": {
+            "eur": "handleRecommendEUR"
+        }
+    },
+    "should": {
+        "buy": {
+            "eur": "handleRecommendEUR"
+        }
+    },
     "help": "handleHelp"
 }

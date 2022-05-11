@@ -65,6 +65,59 @@ commandHandlers.getCurrencyData = async (pa, type) => {
     return data[last].course;
 }
 
+commandHandlers.handleRecommendEUR = async (pa = path.join(__dirname, "..", "files", "historyEURData.json")) => {
+    // Load data
+    historyData = await readFile(pa, "json");
+
+    //Get last 3 days
+    let keys = Object.keys(historyData).reverse().slice(0,3);
+    let vals = [];
+    keys.forEach(key => {
+        let val = parseFloat(historyData[key].course.replace(",", "."));
+        vals.push(val);
+    });
+
+    //Build arithmetic avg
+    let avg = commandHandlers.buildAVG(vals);
+    
+    let stats = commandHandlers.checkRecommendation(vals, avg);
+
+    let response = ` Latest 3 courses: <br/> - ${vals[2]} CZK <br/> - ${vals[1]} CZK <br/> -${vals[0]} CZK <br/><br/>`;
+    response += (stats[1] < 0) ? `In total, EUR increased by ${stats[1]*-1}` : `In total, EUR decreased by ${stats[1]} `
+    if(stats[0]) {
+        //Should recommend
+        response += `<br/> <br/>`;
+        response += `<b>Conclusion</b>: You should <b style='color: green;'>definetly buy EUR right now</b>, because it either is still decreasing or overall did not increate by more than 10% of average value `;
+    }else {
+        response += `<br/> <br/>`;
+        response += `<b>Conclusion</b>: You shoud <b style='color: red;'>definetly NOT buy EUR right now</b>, because it increased by more than 10% of average`;
+    }
+
+    return response;
+}
+
+commandHandlers.checkRecommendation = (vals, avg) => {
+    let inc = avg / 10; // 10 % increace / decrease
+    let fullDifference = 0.0;
+    for(let i = vals.length-1; i > 0; i--) {
+        let diff = vals[i] - vals[i-1];
+        fullDifference += diff;
+        if(fullDifference < inc*-1) { //If total difference is larger than 10% of avg
+            return [false, fullDifference];
+        }
+    }
+
+    return [true, fullDifference]; //Decreasing, same, not increasing by 10%;
+}
+
+commandHandlers.buildAVG = (vals) => {
+    let sum = 0.0;
+    vals.forEach(val => {
+        sum += val;
+    })
+    return sum / vals.length
+}
+
 commandHandlers.handleHelp = () => {
     return `Try asking for the current time.. like Hey, what time it is? or whats my name? or to show you a course of euro, or perhabs what the history of eur is`;
 }
