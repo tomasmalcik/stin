@@ -15,7 +15,6 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: build and deploy
         run: |
-            /home/developer/copyHistory.sh
             cd server
             npm i
             cd ../client
