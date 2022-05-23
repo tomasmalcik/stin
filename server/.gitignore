@@ -117,4 +117,4 @@ dist
 .pnp.*
 
 # history data
-/server/private/files/historyEURData.json
+**/historyEURData.json/**
