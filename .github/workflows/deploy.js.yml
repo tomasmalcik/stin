@@ -13,14 +13,15 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - run: |
-          cd server
-          npm i
-          cd ../client
-          npm i
-          npm run build
-          pm2 stop 0
-          pm2 start 0
-          pm2 save
-          sudo service nginx restart
+      - run: /home/deployer/copyHistory.sh
+      - run: cd server
+      - run: npm i
+      - run: cd ../client
+      - run: npm i
+      - run: npm run build
+      - run: /home/deployer/pasteHistory.sh
+      - run: pm2 stop 0
+      - run: pm2 start 0
+      - run: pm2 save
+      - run: sudo service nginx restart
           
