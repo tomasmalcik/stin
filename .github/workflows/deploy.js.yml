@@ -14,9 +14,9 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: /home/deployer/copyHistory.sh
-      - run: cd server
+      - run: cd /var/www/stin/_work/stin/stin/server
       - run: npm i
-      - run: cd ../client
+      - run: cd /var/www/stin/_work/stin/stin/client
       - run: npm i
       - run: npm run build
       - run: /home/deployer/pasteHistory.sh
