@@ -83,7 +83,8 @@ commandHandlers.handleRecommendEUR = async (pa = path.join(__dirname, "..", "fil
     let stats = commandHandlers.checkRecommendation(vals, avg);
 
     let response = ` Latest 3 courses: <br/> - ${vals[2]} CZK <br/> - ${vals[1]} CZK <br/> -${vals[0]} CZK <br/><br/>`;
-    response += (stats[1] < 0) ? `In total, EUR increased by ${stats[1]*-1}` : `In total, EUR decreased by ${stats[1]} `
+    response += (stats[1] < 0) ? `In total, EUR increased by ${(stats[1]*-1).toFixed(5)}` : `In total, EUR decreased by ${(stats[1].toFixed(5))} <br/><br/>`
+    response += `<br/> Maximal increase value is: ${(avg / 10).toFixed(5)}`
     if(stats[0]) {
         //Should recommend
         response += `<br/> <br/>`;
